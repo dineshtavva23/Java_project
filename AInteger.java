@@ -1,5 +1,9 @@
 
 
+
+
+
+
 public class AInteger{
     String value;
 
@@ -20,17 +24,22 @@ public class AInteger{
 
     }
     public String string_add(String s1,String s2){
+ 
         String result="";
-        if(s1.length()>= s2.length()){
-            for(int i =0;i<s1.length()-s2.length();i++){
+        int len1= s1.length();
+        int len2=s2.length();
+        if(len1>= len2){
+            for(int i =0;i<len1-len2;i++){
                 s2 = '0'+ s2; 
             }
         }
         else{
-            for(int i =0;i<s2.length()-s1.length();i++){
+            for(int i =0;i<len2-len1;i++){
             s1 = '0'+ s1; 
             }
         }
+        // System.out.println("num1 : " + s1);
+        // System.out.println("num2 : " + s2);
         int max_length= s1.length();
         int carry_on =0;
         for(int i=max_length-1;i>=0;i--){
@@ -45,6 +54,8 @@ public class AInteger{
     return result;
 
     }
+
+
     public String string_subtract(String s1,String s2){
         String result="";
         if(s1.length()>= s2.length()){
@@ -80,6 +91,35 @@ public class AInteger{
 
 
     }
+
+    public String string_multiply(String s1, String s2){
+        String result ="";
+        for(int i=s2.length()-1;i>=0;i--){
+            String curr_product ="";
+            int carry_on=0;
+            for(int j=s1.length()-1;j>=0;j--){
+                int temp = carry_on + ((s1.charAt(j)-'0')*(s2.charAt(i)-'0'));
+                curr_product= Integer.toString(temp%10) + curr_product;
+                carry_on = temp/10;
+                // System.out.println("carry on: "+carry_on);
+            }
+            curr_product = Integer.toString(carry_on)+curr_product;
+            for(int j=0;j<s2.length()-i-1;j++){
+                curr_product +='0';
+            }
+            result= string_add(result, curr_product);
+            
+            // System.out.println("curr_product : " + curr_product);
+        }
+        // System.out.println("result : " + result);
+
+
+
+        return result;
+
+    }
+
+
     public int compare_string(String s1, String s2){
         if(s1.length()>s2.length()){
             return 1;
@@ -91,6 +131,8 @@ public class AInteger{
             return s1.compareTo(s2);
         }
     }
+
+
 
     public AInteger add(AInteger other){
         String Integers_sum="";
@@ -202,11 +244,30 @@ public class AInteger{
         
 
     }
+
+    public AInteger multiply(AInteger other){
+        String Integers_mul="";
+        
+        
+        if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
+            this.value = this.value.substring(1);
+            other.value = other.value.substring(1);
+            Integers_mul = string_multiply(this.value, other.value);
+
+            Integers_mul = '-'+Integers_mul;
+        }
+        else if((this.value.charAt(0)=='+' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='-' && other.value.charAt(0)=='-')){
+            Integers_mul = string_multiply(this.value, other.value);
+            
+        }
+        return new AInteger(Integers_mul);
+    }
     public static void main(String[] args) {
-        AInteger int1 = new AInteger("-299");
-        AInteger int2 = new AInteger("+4293");
-        AInteger diff = int1.subtract(int2);
-        System.out.println(diff.value); 
+        AInteger int1 = new AInteger("+98");
+        AInteger int2 = new AInteger("-1");
+        // AInteger diff = int1.subtract(int2);
+        AInteger x = int1.multiply(int2);
+        System.out.println(x.value); 
     }
 
 
