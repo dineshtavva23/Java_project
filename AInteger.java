@@ -155,12 +155,59 @@ public class AInteger{
         return new AInteger(Integers_sum);
 
     }
+    public AInteger subtract(AInteger other){
+        String Integers_diff="";
+        if(this.value.charAt(0)=='+'){
+            if(other.value.charAt(0)=='+'){
+                this.value= this.value.substring(1);
+                other.value = other.value.substring(1);
+                if(compare_string(this.value, other.value)>0){
+                    Integers_diff = string_subtract(this.value, other.value);
+                }
+                else{
+                    Integers_diff = string_subtract(other.value, this.value);
+                    Integers_diff = '-' + Integers_diff;
+                }
+            }
+            else if(other.value.charAt(0)=='-'){
+                this.value=this.value.substring(1);
+                other.value = other.value.substring(1);
+                Integers_diff = string_add(this.value, other.value);
+            }
+        }
+        else if(this.value.charAt(0)=='-'){
+            if(other.value.charAt(0)=='+'){
+                this.value=this.value.substring(1);
+                other.value = other.value.substring(1);
+                Integers_diff=string_add(this.value, other.value);
+                Integers_diff = '-'+Integers_diff;
+
+            }
+            else if (other.value.charAt(0)=='-'){
+            this.value=this.value.substring(1);
+            other.value = other.value.substring(1);
+            if(compare_string(this.value, other.value)>0){
+                Integers_diff = string_subtract(this.value, other.value);
+                Integers_diff = '-' + Integers_diff;
+            }
+            else{
+                Integers_diff = string_subtract(other.value, this.value);
+                
+            }
+            
+
+        }
+    }
+        return new AInteger(Integers_diff);
+        
+
+    }
     public static void main(String[] args) {
-        AInteger int1 = new AInteger("+299");
+        AInteger int1 = new AInteger("-299");
         AInteger int2 = new AInteger("+4293");
-        AInteger sum = int1.add(int2);
-        System.out.println(sum.value); 
-     }
+        AInteger diff = int1.subtract(int2);
+        System.out.println(diff.value); 
+    }
 
 
 
