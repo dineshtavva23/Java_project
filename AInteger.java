@@ -1,9 +1,3 @@
-
-
-
-
-
-
 public class AInteger{
     String value;
 
@@ -23,6 +17,54 @@ public class AInteger{
         return new_int;
 
     }
+
+
+    public int compare_string(String s1, String s2){
+        s1= AInteger.remove_zeros(s1);
+        s2=AInteger.remove_zeros(s2);
+        if(s1.equals("")&&s2.equals("")){
+            return 0;
+        }
+        if(s1.equals("")){
+            return -1;
+        }
+        if(s2.equals("")){
+            return 1;
+        }
+
+
+        if(s1.length()>s2.length()){
+            return 1;
+        }
+        else if(s1.length()<s2.length()){
+            return -1;
+        }
+        else{
+            return s1.compareTo(s2);
+        }
+    }
+
+    
+    static String remove_zeros(String s1){
+        String result="";
+        int check=0;
+        for(int i =0;i<s1.length();i++){
+        if(check!=0){
+            result+=s1.charAt(i);
+        }
+        if(check==0&&(s1.charAt(i)!='0')){
+            check=1;
+            result+=s1.charAt(i);
+        }
+        }
+       
+
+
+
+        return result;
+    }
+
+
     public String string_add(String s1,String s2){
  
         String result="";
@@ -75,6 +117,7 @@ public class AInteger{
             curr_diff += (s1.charAt(i)-'0') - (s2.charAt(i)-'0');
             if(carry_on_is_neg){
                 curr_diff-=1;
+                carry_on_is_neg=false;
             }
 
             if(curr_diff<0){
@@ -91,6 +134,7 @@ public class AInteger{
 
 
     }
+
 
     public String string_multiply(String s1, String s2){
         String result ="";
@@ -120,19 +164,38 @@ public class AInteger{
     }
 
 
-    public int compare_string(String s1, String s2){
-        if(s1.length()>s2.length()){
-            return 1;
+    public String string_divide(String s1, String s2, String quotient) {
+        s1 = AInteger.remove_zeros(s1);
+        s2 = AInteger.remove_zeros(s2);
+    
+        if (s2.equals("")) throw new ArithmeticException("Division by zero");
+    
+        String result = "";
+        String current = "";
+    
+        for (int i = 0; i < s1.length(); i++) {
+            current += s1.charAt(i);
+            current = AInteger.remove_zeros(current);
+    
+            if (compare_string(current, s2) < 0) {
+                if (result.length() > 0) result+="0";
+            } else {
+                for (int j = 9; j >= 0; j--) {
+                    String product = string_multiply(s2, String.valueOf(j));
+                    if (compare_string(product, current) <= 0) {
+                        result+=j;
+                        current = string_subtract(current, product);
+                        current = AInteger.remove_zeros(current);
+                        break;
+                    }
+                }
+            }
         }
-        else if(s1.length()<s2.length()){
-            return -1;
-        }
-        else{
-            return s1.compareTo(s2);
-        }
+    
+        String finalResult = result;
+        return finalResult.isEmpty() ? "0" : AInteger.remove_zeros(finalResult);
     }
-
-
+    
 
     public AInteger add(AInteger other){
         String Integers_sum="";
@@ -197,6 +260,8 @@ public class AInteger{
         return new AInteger(Integers_sum);
 
     }
+ 
+    
     public AInteger subtract(AInteger other){
         String Integers_diff="";
         if(this.value.charAt(0)=='+'){
@@ -245,6 +310,7 @@ public class AInteger{
 
     }
 
+
     public AInteger multiply(AInteger other){
         String Integers_mul="";
         
@@ -257,17 +323,49 @@ public class AInteger{
             Integers_mul = '-'+Integers_mul;
         }
         else if((this.value.charAt(0)=='+' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='-' && other.value.charAt(0)=='-')){
+            this.value = this.value.substring(1);
+            other.value = other.value.substring(1);
             Integers_mul = string_multiply(this.value, other.value);
             
         }
         return new AInteger(Integers_mul);
     }
+
+
+    public AInteger divide(AInteger other){
+        String Integers_div="";
+        if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
+            this.value = this.value.substring(1);
+            other.value = other.value.substring(1);
+            Integers_div = string_divide(this.value, other.value,"");
+
+            Integers_div= '-'+Integers_div;
+        }
+        else if((this.value.charAt(0)=='+' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='-' && other.value.charAt(0)=='-')){
+            this.value = this.value.substring(1);
+            other.value = other.value.substring(1);
+            this.value = AInteger.remove_zeros(this.value);
+            other.value = AInteger.remove_zeros(other.value);
+            // System.out.println("given values are "+this.value+other.value);
+
+            Integers_div = string_divide(this.value, other.value,"");
+            
+            
+        }
+        return new AInteger(Integers_div);
+
+    }
+
+
     public static void main(String[] args) {
-        AInteger int1 = new AInteger("+98");
-        AInteger int2 = new AInteger("-1");
+        AInteger int1 = new AInteger("-0204");
+        AInteger int2 = new AInteger("+102");
         // AInteger diff = int1.subtract(int2);
-        AInteger x = int1.multiply(int2);
+        AInteger x = int1.divide(int2);
+
         System.out.println(x.value); 
+        // System.out.println(int1.string_subtract("980","0804"));
+        // System.out.println(int1.remove_zeros());
     }
 
 
