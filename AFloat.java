@@ -4,16 +4,25 @@ public class AFloat {
     AFloat(){
         this.value="0.0";
     }
+
+  
     AFloat(String value){
         this.value=value;
     }
 
+   
     public AFloat parse(String s){
-        AFloat new_float =  new AFloat(s);
-        return new_float;
+        return new AFloat(s);
+        
     }
 
-    public String int_part(){
+   
+   public AFloat copy(AFloat other){
+    return new AFloat(other.value);
+   }
+   
+   
+   public String int_part(){
         int first_decimal = this.value.indexOf('.');
         return this.value.substring(0,first_decimal);
     }
@@ -26,7 +35,6 @@ public class AFloat {
     }
  
  
-
     static String remove_zeros(String s1){
         String result="";
         int check=0;
@@ -59,6 +67,7 @@ public class AFloat {
         }
     }
 
+  
     public int string_compare_float(String s1, String s2) {
         AFloat float1 = new AFloat(s1);
         AFloat float2 = new AFloat(s2);
@@ -71,6 +80,7 @@ public class AFloat {
         }
     }
 
+   
     public static String shift_decimal_point_right(String floatStr, int shiftRightBy) {
         if (floatStr == null || floatStr.isEmpty()) {
             throw new IllegalArgumentException("Input string cannot be null or empty.");
@@ -108,8 +118,6 @@ public class AFloat {
     }
 
     
-
-
     public String string_add_int(String s1,String s2){
         String result="";
         int len1= s1.length();
@@ -206,9 +214,10 @@ public class AFloat {
 
     }
 
+
     public String string_div_int(String s1,String s2){
-        s1 = AInteger.remove_zeros(s1);
-        s2 = AInteger.remove_zeros(s2);
+        s1 = AInteger.removeLeadingZeros(s1);
+        s2 = AInteger.removeLeadingZeros(s2);
         // System.out.println(s1+s2);
     
         if (s2.equals("")) throw new ArithmeticException("Division by zero");
@@ -254,7 +263,7 @@ public class AFloat {
                         if (string_compare_int(product, current) <= 0) {
                             result+=j;
                             current = string_subtract_int(current, product);
-                            current = AInteger.remove_zeros(current);
+                            current = AInteger.removeLeadingZeros(current);
                             break;
                         }
                     }
@@ -263,16 +272,16 @@ public class AFloat {
             }
         }
 
-        
+        if(result.charAt(0)=='.'){
+            result = '0'+result;
+        }
         
     
-        String finalResult = result;
-        // System.out.println(finalResult);
-        return finalResult.isEmpty() ? "0" : AInteger.remove_zeros(finalResult);
+    
+        return result.isEmpty() ? "0" : AInteger.removeLeadingZeros(result);
 
     }
-
-    
+   
 
     public String string_add_float(String s1,String s2){
         int first_decimal = s1.indexOf('.');
@@ -442,7 +451,7 @@ public class AFloat {
         result = string_div_int(num1, num2);
 
         // int new_len = result.length();
-        int new_decimal_place = result.indexOf('.');
+        // int new_decimal_place = result.indexOf('.');
         // StringBuilder sb = new StringBuilder(result);
         // sb.insert(new_len - (decimal_num_s1-decimal_num_s2)+1, '.');
 
@@ -451,16 +460,11 @@ public class AFloat {
 
         
 
-
-
-
-
         return result;
 
 
     }
  
-
 
     public AFloat add(AFloat other){
         String Float_sum="";
@@ -674,8 +678,8 @@ public class AFloat {
         else if((this.value.charAt(0)=='+' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='-' && other.value.charAt(0)=='-')){
             this.value = this.value.substring(1);
             other.value = other.value.substring(1);
-            this.value = AInteger.remove_zeros(this.value);
-            other.value = AInteger.remove_zeros(other.value);
+            this.value = AInteger.removeLeadingZeros(this.value);
+            other.value = AInteger.removeLeadingZeros(other.value);
             // System.out.println("given values are "+this.value+other.value);
 
             Float_div = string_divide_float(this.value, other.value);
@@ -687,15 +691,14 @@ public class AFloat {
         return new AFloat(Float_div);
     }
 
-
     
     public static void main(String[] args) {
-        AFloat float1 = new AFloat("+1.2");
+        AFloat float1 = new AFloat("+0.89");
         AFloat float2 = new AFloat("-0.25");
         AFloat x = float1.divide(float2);
         System.out.println(x.value);
 
     }
 
-    
+
 }
