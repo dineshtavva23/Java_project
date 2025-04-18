@@ -198,33 +198,33 @@ public class AInteger{
     
 
     public AInteger add(AInteger other){
-        String Integers_sum="";
+        String result="";
         if(this.value.charAt(0)=='+'){
             if(other.value.charAt(0)=='+'){
                 this.value = this.value.substring(1);
                 other.value = other.value.substring(1);
-                Integers_sum = stringAdd(this.value, other.value);
+                result = stringAdd(this.value, other.value);
                 
             }
             else if(other.value.charAt(0)=='-'){
                 this.value = this.value.substring(1);
                 other.value = other.value.substring(1);
-                String num1;
-                String num2;
-                boolean is_neg=false;
+                String largerValue;
+                String smallerValue;
+                boolean isNegative=false;
                 if(compareString(this.value, other.value)>0){
-                    num1=this.value;
-                    num2=other.value;
+                    largerValue=this.value;
+                    smallerValue=other.value;
                     
                 }
                 else{
-                    num1=other.value;
-                    num2=this.value;
-                    is_neg=true;
+                    largerValue=other.value;
+                    smallerValue=this.value;
+                    isNegative=true;
                 }
-                Integers_sum=stringSubtract(num1, num2);
-                if(is_neg){
-                    Integers_sum = '-'+Integers_sum;
+                result=stringSubtract(largerValue, smallerValue);
+                if(isNegative){
+                    result = '-'+result;
                 }    
             }
             
@@ -233,8 +233,8 @@ public class AInteger{
             if(other.value.charAt(0)=='-'){
                 this.value = this.value.substring(1);
                 other.value = other.value.substring(1);
-                Integers_sum = stringAdd(this.value, other.value);
-                Integers_sum = '-'+Integers_sum;
+                result = stringAdd(this.value, other.value);
+                result = '-'+result;
             
 
             }
@@ -242,98 +242,98 @@ public class AInteger{
                 this.value=this.value.substring(1);
                 other.value=other.value.substring(1);
                 if(compareString(this.value, other.value)>0){
-                    Integers_sum = stringSubtract(this.value, other.value);
-                    Integers_sum = '-'+Integers_sum;
+                    result = stringSubtract(this.value, other.value);
+                    result = '-'+result;
                 }
                 else{
-                    Integers_sum = stringSubtract(other.value, this.value);
+                    result = stringSubtract(other.value, this.value);
                 }
 
             }
         }
-        return new AInteger(Integers_sum);
+        return new AInteger(result);
 
     }
  
     
     public AInteger subtract(AInteger other){
-        String Integers_diff="";
+        String result="";
         if(this.value.charAt(0)=='+'){
             if(other.value.charAt(0)=='+'){
                 this.value= this.value.substring(1);
                 other.value = other.value.substring(1);
                 if(compareString(this.value, other.value)>0){
-                    Integers_diff = stringSubtract(this.value, other.value);
+                    result = stringSubtract(this.value, other.value);
                 }
                 else{
-                    Integers_diff = stringSubtract(other.value, this.value);
-                    Integers_diff = '-' + Integers_diff;
+                    result = stringSubtract(other.value, this.value);
+                    result = '-' + result;
                 }
             }
             else if(other.value.charAt(0)=='-'){
                 this.value=this.value.substring(1);
                 other.value = other.value.substring(1);
-                Integers_diff = stringAdd(this.value, other.value);
+                result = stringAdd(this.value, other.value);
             }
         }
         else if(this.value.charAt(0)=='-'){
             if(other.value.charAt(0)=='+'){
                 this.value=this.value.substring(1);
                 other.value = other.value.substring(1);
-                Integers_diff=stringAdd(this.value, other.value);
-                Integers_diff = '-'+Integers_diff;
+                result=stringAdd(this.value, other.value);
+                result = '-'+result;
 
             }
             else if (other.value.charAt(0)=='-'){
             this.value=this.value.substring(1);
             other.value = other.value.substring(1);
             if(compareString(this.value, other.value)>0){
-                Integers_diff = stringSubtract(this.value, other.value);
-                Integers_diff = '-' + Integers_diff;
+                result = stringSubtract(this.value, other.value);
+                result = '-' + result;
             }
             else{
-                Integers_diff = stringSubtract(other.value, this.value);
+                result = stringSubtract(other.value, this.value);
                 
             }
             
 
         }
     }
-        return new AInteger(Integers_diff);
+        return new AInteger(result);
         
 
     }
 
 
     public AInteger multiply(AInteger other){
-        String Integers_mul="";
+        String result="";
         
         
         if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
             this.value = this.value.substring(1);
             other.value = other.value.substring(1);
-            Integers_mul = stringMultiply(this.value, other.value);
+            result = stringMultiply(this.value, other.value);
 
-            Integers_mul = '-'+Integers_mul;
+            result = '-'+result;
         }
         else if((this.value.charAt(0)=='+' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='-' && other.value.charAt(0)=='-')){
             this.value = this.value.substring(1);
             other.value = other.value.substring(1);
-            Integers_mul = stringMultiply(this.value, other.value);
+            result = stringMultiply(this.value, other.value);
             
         }
-        return new AInteger(Integers_mul);
+        return new AInteger(result);
     }
 
 
     public AInteger divide(AInteger other){
-        String Integers_div="";
+        String result="";
         if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
             this.value = this.value.substring(1);
             other.value = other.value.substring(1);
-            Integers_div = dividend(this.value, other.value,"");
+            result = dividend(this.value, other.value,"");
 
-            Integers_div= '-'+Integers_div;
+            result= '-'+result;
         }
         else if((this.value.charAt(0)=='+' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='-' && other.value.charAt(0)=='-')){
             this.value = this.value.substring(1);
@@ -342,18 +342,18 @@ public class AInteger{
             other.value = AInteger.removeLeadingZeros(other.value);
             // System.out.println("given values are "+this.value+other.value);
 
-            Integers_div = dividend(this.value, other.value,"");
+            result = dividend(this.value, other.value,"");
             
             
         }
-        return new AInteger(Integers_div);
+        return new AInteger(result);
 
     }
 
 
     public static void main(String[] args) {
-        AInteger int1 = new AInteger("+980");
-        AInteger int2 = new AInteger("+90");
+        AInteger int1 = new AInteger("+8792726365283060579833950521677211");
+        AInteger int2 = new AInteger("+493835253617089647454998358");
         // AInteger diff = int1.subtract(int2);
         AInteger x = int1.divide(int2);
 
