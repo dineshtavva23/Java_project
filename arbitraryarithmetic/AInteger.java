@@ -86,7 +86,7 @@ public class AInteger{
         }
         else{
             for(int i =0;i<len2-len1;i++){
-            s1 = '0'+ s1; 
+            s1 = '0' + s1; 
             }
         }
         // System.out.println("num1 : " + s1);
