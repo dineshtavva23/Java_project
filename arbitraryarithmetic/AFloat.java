@@ -11,6 +11,33 @@ public class AFloat {
         this.value=value;
     }
 
+    public static boolean validString(String s){
+        int len = s.length();
+        boolean seenDot = false;
+        boolean seenDigit = false;
+        // Check optional sign
+
+        for (int i=1; i < len; i++) {
+            char c = s.charAt(i);
+
+            if (c == '.') {
+                if (seenDot) {
+                    return false;
+                }
+                seenDot = true;
+            } else if (c >= '0' && c <= '9') {
+                seenDigit = true;
+            } else {
+                return false;
+            }
+        }
+
+        if (!seenDigit) {
+            return false;
+        }
+        return true;
+    
+    }
    
     public AFloat parse(String s){
         return new AFloat(s);
@@ -551,6 +578,16 @@ public class AFloat {
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
         }
+        if(!AFloat.validString(this.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
+        }
+        if(!AFloat.validString(other.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
+        }
         if(this.value.charAt(0)=='+'){
             if(other.value.charAt(0)=='+'){
                 this.value = this.value.substring(1);
@@ -635,6 +672,16 @@ public class AFloat {
         }
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
+        }
+        if(!AFloat.validString(this.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
+        }
+        if(!AFloat.validString(other.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
         }
         if(this.value.charAt(0)=='+'){
             if(other.value.charAt(0)=='+'){
@@ -742,6 +789,16 @@ public class AFloat {
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
         }
+        if(!AFloat.validString(this.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
+        }
+        if(!AFloat.validString(other.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
+        }
         if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
             this.value = this.value.substring(1);
             other.value = other.value.substring(1);
@@ -779,6 +836,16 @@ public class AFloat {
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
             // System.out.println("hleoo");
+        }
+        if(!AFloat.validString(this.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
+        }
+        if(!AFloat.validString(other.value)){
+            System.out.println("Please enter a vlaid float value.");
+            return new AFloat("Exiting....");
+
         }
         if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
             this.value = this.value.substring(1);

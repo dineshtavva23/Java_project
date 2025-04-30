@@ -13,6 +13,18 @@ public class AInteger{
 
     }
 
+    public static boolean validString(String s){
+        for (int i = 1; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c < '0' || c > '9') {
+                System.out.println("Invalid Integer string. Enter correct type."); 
+                return false;            
+                
+            }
+        }
+        return true;
+        
+    }
 
     public static AInteger parse(String s){
         return new AInteger(s);
@@ -216,6 +228,13 @@ public class AInteger{
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
         }
+        if(!AInteger.validString(this.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        if(!AInteger.validString(other.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        
 
         if(this.value.charAt(0)=='+'){
             if(other.value.charAt(0)=='+'){
@@ -282,6 +301,13 @@ public class AInteger{
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
         }
+        if(!AInteger.validString(this.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        if(!AInteger.validString(other.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        
         if(this.value.charAt(0)=='+'){
             if(other.value.charAt(0)=='+'){
                 this.value= this.value.substring(1);
@@ -337,6 +363,14 @@ public class AInteger{
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
         }
+
+        if(!AInteger.validString(this.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        if(!AInteger.validString(other.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        
         
         
         if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
@@ -367,6 +401,15 @@ public class AInteger{
         if (other.value.charAt(0) != '+' && other.value.charAt(0) != '-') {
             other.value = '+' + other.value;
         }
+        if(!AInteger.validString(this.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        if(!AInteger.validString(other.value)){
+            return new AInteger("Invalid type. Please Enter correct format");
+        }
+        
+        
+        
         if ((this.value.charAt(0)=='-' && other.value.charAt(0)=='+') ||(this.value.charAt(0)=='+' && other.value.charAt(0)=='-')) {
             this.value = this.value.substring(1);
             other.value = other.value.substring(1);
