@@ -13,3 +13,4 @@ else:
 if len(sys.argv[1:])!=0:
     print("Running MyInfArith as arguments were provided")
     runjava = subprocess.run(["java","MyInfArith"]+sys.argv[1:],text=True)
+
