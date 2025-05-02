@@ -49,20 +49,20 @@ ant clean
 
 ---
 
-### Option 2: Using the Python Script (`run.py`)
+### Option 2: Using the Python Script (`script.py`)
 
 This script compiles source files, creates the JAR, and optionally runs the program if arguments are passed.
 
 #### Run Without Execution
 
 ```bash
-python3 run.py
+python3 script.py
 ```
 
 #### Run with Arguments
 
 ```bash
-python3 run.py int mul 123456789 987654321
+python3 script.py int mul 123456789 987654321
 ```
 
 > ✅ Automatically compiles and creates the JAR at `build/aarithmetic.jar` before running.
@@ -74,13 +74,13 @@ python3 run.py int mul 123456789 987654321
 #### Build Docker Image
 
 ```bash
-docker build -t java-inf-arith .
+docker build -t java_project .
 ```
 
 #### Run Program
 
 ```bash
-docker run --rm java-inf-arith float div 244727.15202 75964.3891
+docker run --rm java_project float div 244727.15202 75964.3891
 ```
 
 ---
