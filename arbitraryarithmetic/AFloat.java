@@ -11,6 +11,14 @@ public class AFloat {
         this.value=value;
     }
 
+    @Override
+    // Prints the string representation of the float number
+    public String toString(){
+        return this.value;
+    }  
+
+
+    // Check if the string is a valid float number
     public static boolean validString(String s){
         int len = s.length();
         boolean seenDot = false;
@@ -39,36 +47,41 @@ public class AFloat {
     
     }
    
+
+    // Takes a string and returns an AFloat object with the value of the string
     public AFloat parse(String s){
         return new AFloat(s);
         
     }
 
-   
+
+   // Takes another AFloat object and returns a new AFloat object with the same value
    public AFloat copy(AFloat other){
     return new AFloat(other.value);
    }
    
-   
+
+   // Gives the Integer part of the string representation of the float number
    public String intPart(){
         int dotIndex = (this.value.indexOf('.')!=-1)? this.value.indexOf('.'):this.value.length() ;
         return this.value.substring(0,dotIndex);
     }
 
-   
+
+   // Gives the decimal part of the string representation of the float number
     public String float_part(){
         int dotIndex = (this.value.indexOf('.')!=-1)? this.value.indexOf('.'):this.value.length();
         return this.value.substring(dotIndex);
 
     }
  
- 
+
+    // Remove leading and trailing zeros from the string representation of the float number
     static String removeZeros(String s1){
         if(s1.equals("")){
             return "0";
         }
-        
-            
+
         String IntPart = "";
         String decimalPart = "";
         
@@ -80,28 +93,24 @@ public class AFloat {
         } else {
             IntPart = s1;
         }
-        
-        
         int i = 0;
         while (i < IntPart.length() && IntPart.charAt(i) == '0') i++;
         IntPart = (i == IntPart.length()) ? "0" : IntPart.substring(i);
         
-        
         int j = decimalPart.length() - 1;
         while (j >= 0 && decimalPart.charAt(j) == '0') j--;
         decimalPart = decimalPart.substring(0, j + 1);
-        
-        
+
         if (decimalPart.isEmpty()) {
             return IntPart;
         } else {
             return IntPart + "." + decimalPart;
         }
         
-        
     }
 
-    
+
+    // compare two string integers and return 1 if s1>s2, -1 if s1<s2 and 0 if they are equal
     public int compareStringIntegers(String s1,String s2){
         s1 = removeZeros(s1);
         s2 = removeZeros(s2);
@@ -117,6 +126,8 @@ public class AFloat {
         }
     }
    
+
+    // Shift the decimal point of a float string to the right by a specified number of places
     public static String shiftDecimalPointRight(String floatStr, int shiftRightBy) {
         if (floatStr == null || floatStr.isEmpty()) {
             throw new IllegalArgumentException("Input string cannot be null or empty.");
@@ -152,7 +163,8 @@ public class AFloat {
         return sb.toString();
     }
 
-    
+
+    // Add two string integers and return the result as a string
     public String addStringIntegers(String s1, String s2) {
         StringBuilder result = new StringBuilder();
         int len1 = s1.length();
@@ -190,6 +202,7 @@ public class AFloat {
     }
     
 
+    // Subtract two string integers and return the result as a string
     public String subtractStringIntegers(String s1, String s2) {
         StringBuilder result = new StringBuilder();
     
@@ -230,6 +243,7 @@ public class AFloat {
     }
     
 
+    // Multiply two string integers and return the result as a string
     public String multiplyStringIntegers(String s1, String s2) {
         String result = "0";
     
@@ -259,6 +273,7 @@ public class AFloat {
     }
     
 
+    // Divide two string integers and return the result as a float string
     public String divideStringIntegers(String dividend, String divisor) {
         dividend = AInteger.removeLeadingZeros(dividend);
         divisor = AInteger.removeLeadingZeros(divisor);
@@ -300,7 +315,7 @@ public class AFloat {
         // System.out.println(quotient);
     
         if (!remainder.toString().equals(".")) {
-            int precisionLimit = 1000;
+            int precisionLimit = 30;
             int decimalDigits = 0;
             while (decimalDigits < precisionLimit && !remainder.toString().equals("0")) {
                 // System.out.println(remainder);
@@ -344,6 +359,7 @@ public class AFloat {
     }
     
 
+    // Add two string float numbers and return the result as a string
     public String addStringFloat(String s1,String s2){
         // System.out.println("num1 : " + s1);
         // System.out.println("num2 : " + s2);
@@ -399,7 +415,8 @@ public class AFloat {
         
     }
 
-   
+
+   // Subtract two string float numbers and return the result as a string
     public String subtractStringFloat(String s1,String s2){
         int decimalIndex1 = (s1.indexOf('.')==-1)? s1.length(): s1.indexOf('.') ;
         int decimalIndex2 =(s2.indexOf('.') ==-1)? s2.length() : s2.indexOf('.');
@@ -456,6 +473,7 @@ public class AFloat {
     }
    
 
+    // Multiply two string float numbers and return the result as a string
     public String multiplyStringFloat(String s1,String s2){
         String result="";
         int decimalIndex1=s1.indexOf('.');
@@ -520,13 +538,12 @@ public class AFloat {
     }
    
 
+    // Divide two string float numbers and return the result as a string
     public String divideStringFloat(String s1, String s2) {
     String result;
     if (s2.equals("")||s2.equals("0")) {
         return "Division by zero error";
     }
-    
-
     int decimalIndex1 = s1.indexOf('.');
     int decimalIndex2 = s2.indexOf('.');
 
@@ -570,6 +587,7 @@ public class AFloat {
 }
  
 
+    // Takes another AFloat object apply addStringFloat or subtractStringFloat on their values  for addition or subtraction
     public AFloat add(AFloat other){
         String result="";
         if (this.value.charAt(0) != '+' && this.value.charAt(0) != '-') {
@@ -664,7 +682,8 @@ public class AFloat {
 
     }
 
-   
+
+   // Takes another AFloat object apply addStringFloat or subtractStringFloat on their values  for addition or subtraction
     public AFloat subtract(AFloat other){
         String result="";
         if (this.value.charAt(0) != '+' && this.value.charAt(0) != '-') {
@@ -781,6 +800,7 @@ public class AFloat {
     }
 
 
+    // Takes another AFloat object apply multiplyStringFloat on their values  for multiplication  
     public AFloat multiply(AFloat other){
         String result="";
         if (this.value.charAt(0) != '+' && this.value.charAt(0) != '-') {
@@ -822,7 +842,9 @@ public class AFloat {
 
     }
 
-    
+
+    // Takes another AFloat object apply divideStringFloat on their values  for division
+    // Division by zero is handled by returning an error message
     public AFloat divide(AFloat other){
         String result="";
         if(other.value.equals("")){
@@ -877,15 +899,4 @@ public class AFloat {
     }
 
     
-    public static void main(String[] args) {
-        // AFloat float1 = new AFloat("+");
-        // AFloat float2 = new AFloat("-");
-        AFloat float1 = new AFloat("5.5");
-        AFloat float2 = new AFloat("0.0000000000000000");
-        AFloat x = float1.divide(float2);
-        System.out.println(x.value);
-
-    }
-
-
 }

@@ -1,18 +1,29 @@
 package arbitraryarithmetic;
 
+
 public class AInteger{
     public String value;
 
+    // Constructor to initialize the AInteger object with a default value of "0"
     public AInteger() {
         this.value="0";
         }
+        
+    @Override
+    // Prints the value of the AInteger object when it is printed
+    public String toString() {
+        return value;
+    }
 
 
+    // Contrustor to intialize the AInteger object with a given string value  
     public AInteger(String value){
         this.value = value;
 
     }
 
+
+    // Method to check if the string representation of an integer is valid
     public static boolean validString(String s){
         for (int i = 1; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -26,18 +37,22 @@ public class AInteger{
         
     }
 
+
+    // Parse method to convert a string representation of an integer to an AInteger object
     public static AInteger parse(String s){
         return new AInteger(s);
 
     }
     
-    
+
+    // Constructor which takes an AInteger object and copies its value to the new AInteger object
     public AInteger copy(AInteger other){
         return new AInteger(other.value);
 
     }
 
 
+    // Method to compare two string representations of integers
     public int compareString(String s1, String s2){
         s1= AInteger.removeLeadingZeros(s1);
         s2=AInteger.removeLeadingZeros(s2);
@@ -63,7 +78,8 @@ public class AInteger{
         }
     }
 
-    
+
+    // Method to remove leading zeros from a string representation of an integer
     static String removeLeadingZeros(String s1){
         if(s1.equals("")){
             return "0";
@@ -86,6 +102,8 @@ public class AInteger{
     }
 
 
+   // Method to add two string representations of integers
+   // Iteratively adds two strings representing integers and returns the result as a string
     public String stringAdd(String s1,String s2){
  
         String result="";
@@ -119,6 +137,8 @@ public class AInteger{
     }
 
 
+    // Method to subtract two string representations of integers
+    // Takes Larger number as first argument and smaller number as second argument and iteratively subtracts the two strings representing integers and returns the result as a string
     public String stringSubtract(String s1,String s2){
         String result="";
         if(s1.length()>= s2.length()){
@@ -156,6 +176,8 @@ public class AInteger{
     }
 
 
+   // Method to multiply two string representations of integers
+   // Iteratively multiplies two strings representing integers and returns the result as a string
     public String stringMultiply(String s1, String s2){
         String result ="";
         for(int i=s2.length()-1;i>=0;i--){
@@ -184,6 +206,9 @@ public class AInteger{
     }
 
 
+    // Method to divide two string representations of integers
+    // Performs long division on two strings representing integers and returns the result as a string
+    // Takes dividend, divisor and quotient as arguments and returns the result as a string
     public String stringDivide(String dividend, String divisor, String quotient) {
         dividend = AInteger.removeLeadingZeros(dividend);
         divisor = AInteger.removeLeadingZeros(divisor);
@@ -219,6 +244,7 @@ public class AInteger{
     }
     
 
+    // Takes another AInteger object and passes its value to the stringAdd or stringSubtract method based on the sign of the value
     public AInteger add(AInteger other){
         String result="";
 
@@ -292,7 +318,8 @@ public class AInteger{
 
     }
  
-    
+
+    // Takes another AInteger object and passes its value to the stringAdd or StringSubtract method to add or subtract the two AInteger objects.
     public AInteger subtract(AInteger other){
         String result="";
         if (this.value.charAt(0) != '+' && this.value.charAt(0) != '-') {
@@ -355,6 +382,7 @@ public class AInteger{
     }
 
 
+    // Takes another AInteger object and passes its value to the stringMultiply method to multiply the two AInteger objects.
     public AInteger multiply(AInteger other){
         String result="";
         if (this.value.charAt(0) != '+' && this.value.charAt(0) != '-') {
@@ -389,7 +417,8 @@ public class AInteger{
         return new AInteger(result);
     }
 
-
+    
+    // Takes another AInteger object and passes its value to the stringDivide method to divide the two AInteger objects.
     public AInteger divide(AInteger other){
         String result="";
         if(other.value.equals("")){
@@ -432,20 +461,6 @@ public class AInteger{
         return new AInteger(result);
 
     }
-
-
-    public static void main(String[] args) {
-        AInteger int1 = new AInteger("8792726365283060579833950521677211");
-        AInteger int2 = new AInteger("");
-        // AInteger diff = int1.subtract(int2);
-        AInteger x = int1.divide(int2);
-
-        System.out.println(x.value); 
-        // System.out.println(int1.string_subtract("980","0804"));
-        // System.out.println(int1.remove_zeros());
-    }
-
-
 
 
 }
