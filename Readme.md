@@ -65,7 +65,7 @@ python3 script.py
 python3 script.py int mul 123456789 987654321
 ```
 
-> ✅ Automatically compiles and creates the JAR at `build/aarithmetic.jar` before running.
+> Automatically compiles and creates the JAR at `build/aarithmetic.jar` before running.
 
 ---
 
