@@ -25,6 +25,20 @@ public class AInteger{
 
     // Method to check if the string representation of an integer is valid
     public static boolean validString(String s){
+        // Explicitly reject null or empty input
+        if (s == null || s.isEmpty()) {
+            return false;
+        }
+        char first = s.charAt(0);
+        // Validate first character: optional sign or digit
+        if (first == '+' || first == '-') {
+            // Lone '+' or '-' is not a valid integer
+            if (s.length() == 1) {
+                return false;
+            }
+        } else if (first < '0' || first > '9') {
+            return false;
+        }
         for (int i = 1; i < s.length(); i++) {
             char c = s.charAt(i);
             if (c < '0' || c > '9') {
